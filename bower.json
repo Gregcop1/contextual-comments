@@ -1,7 +1,7 @@
 {
   "name": "contextual-comments",
   "description": "Easily provide contextual comments to your users",
-  "main": "dist/jquerycontextual-comments.js",
+  "main": "dist/contextual-comments.js",
   "version": "0.0.0",
   "dependencies": {}
 }

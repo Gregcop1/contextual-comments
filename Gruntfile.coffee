@@ -26,8 +26,8 @@ module.exports = (grunt) ->
 
     uglify:
       build:
-        src: '<%=yeoman.dist %>/jquerycontextual-comments.js'
-        dest: '<%=yeoman.dist %>/jquerycontextual-comments.min.js'
+        src: '<%=yeoman.dist %>/contextual-comments.js'
+        dest: '<%=yeoman.dist %>/contextual-comments.min.js'
 
     mochaTest:
       test:
