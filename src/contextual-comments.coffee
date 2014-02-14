@@ -1,6 +1,7 @@
-class Contextualcomments
-  constructor: ->
-    return "\\o/"
+window.gc = {}
+# gc.cml = req
 
-root = exports ? window
-root.Contextualcomments = Contextualcomments
+gc.contextualcomments = class Contextualcomments
+  constructor: ->
+    # new gc.cml
+    return "\\o/"

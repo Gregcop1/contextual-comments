@@ -5,69 +5,49 @@ mountFolder = (connect, dir) ->
     connect.static require('path').resolve(dir)
 
 module.exports = (grunt) ->
-  require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks)
+  # load all grunt tasks
+  require("load-grunt-tasks")(grunt)
 
-  yeomanConfig =
+  gcConfig =
     src: 'src'
-    dist : './'
+    dist : './lib'
 
   grunt.initConfig
-    yeoman: yeomanConfig
+    gc: gcConfig
+
+    pkg: grunt.file.readJSON('package.json')
 
     coffee:
       build:
-        files: [
-          expand: true
-          cwd: '<%= yeoman.src %>'
-          src: '{,*/}*.coffee'
-          dest: '<%= yeoman.dist %>'
-          ext: '.js'
-        ]
+        options: {
+          # bare: true
+        },
+        files:
+          '<%=gc.dist %>/<%= pkg.name %>.js': '<%=gc.src %>/<%= pkg.name %>.coffee'
 
     uglify:
+      options:
+        banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd HH:MM:ss") %> */\n'
       build:
-        src: '<%=yeoman.dist %>/contextual-comments.js'
-        dest: '<%=yeoman.dist %>/contextual-comments.min.js'
-
-    mochaTest:
-      test:
-        options:
-          reporter: 'spec'
-          compilers: 'coffee:coffee-script'
-        src: ['test/**/*.coffee']
-
-    connect:
-      all:
-        options:
-          port: grunt.option('port') || 0
-          hostname: "localhost"
-          middleware: (connect, options) ->
-            return [
-              # Serve the project folder
-              connect.static(options.base)
-            ]
-    open:
-      all:
-        path: 'http://localhost:<%= connect.all.options.port %>/examples/'
+        src: '<%=gc.dist %>/<%= pkg.name %>.js'
+        dest: '<%=gc.dist %>/<%= pkg.name %>.min.js'
 
     watch:
       options:
         livereload: grunt.option('port') || 35729
       coffee:
-        files: ['src/*.coffee']
+        files: ['<%=gc.src %>/*.coffee']
         tasks: ['coffee:build']
-      html:
-        files: ['examples/*']
+      examples:
+        files: ['examples/**']
 
-    grunt.registerTask 'default', [
-      'coffee:build'
-      'uglify:build'
-    ]
+  grunt.registerTask 'default', [
+    'coffee',
+    'uglify',
+    'watch'
+  ]
 
-    grunt.registerTask 'server', [
-      'coffee:build'
-      'connect',
-      'open'
-      'watch'
-    ]
-
+  grunt.registerTask 'serve', [
+    'coffee',
+    'uglify'
+  ]

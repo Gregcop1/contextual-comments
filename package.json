@@ -1,6 +1,6 @@
 {
   "name": "contextual-comments",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "dependencies": {},
   "devDependencies" : {
     "mocha" : "*",
@@ -12,7 +12,7 @@
     "grunt-contrib-connect": "*",
     "grunt-open": "*",
     "grunt-contrib-watch": "*",
-    "matchdep": "*",
+    "load-grunt-tasks": "*",
     "grunt-mocha-test": "*"
   }
 }
