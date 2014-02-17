@@ -3,7 +3,8 @@
   "description": "Easily provide contextual comments to your users",
   "main": "lib/contextual-comments.js",
   "version": "0.0.1",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "jquery": "~1.11.0",
     "underscore": "~1.6.0"
   }

@@ -4,4 +4,5 @@ module.exports = class Comment
   _selection
 
   constructor: ->
-    return "\\o/"
+
+    return @

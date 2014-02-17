@@ -17,13 +17,12 @@ module.exports = (grunt) ->
 
     pkg: grunt.file.readJSON('package.json')
 
-    coffee:
-      build:
-        options: {
-          # bare: true
-        },
+    browserify:
+      dist:
         files:
           '<%=gc.dist %>/<%= pkg.name %>.js': '<%=gc.src %>/<%= pkg.name %>.coffee'
+        options:
+          transform: ['coffeeify']
 
     uglify:
       options:
@@ -32,22 +31,40 @@ module.exports = (grunt) ->
         src: '<%=gc.dist %>/<%= pkg.name %>.js'
         dest: '<%=gc.dist %>/<%= pkg.name %>.min.js'
 
+    copy:
+      templates:
+        files: [
+          expand: true,
+          cwd: '<%=gc.src %>/templates/'
+          src: ['**'],
+          dest: '<%=gc.dist %>/templates',
+
+        ]
+
     watch:
       options:
-        livereload: grunt.option('port') || 35729
-      coffee:
-        files: ['<%=gc.src %>/*.coffee']
-        tasks: ['coffee:build']
+        livereload: 35729
+      copy:
+        files: ['<%=gc.src %>/templates/**']
+        tasks: ['copy:templates']
+      browserify:
+        files: ['<%=gc.src %>/*.coffee', '<%=gc.src %>/templates/*.html']
+        tasks: ['browserify:dist']
+      uglify:
+        files: ['<%=gc.dist %>/<%= pkg.name %>.js']
+        tasks: ['uglify:build']
       examples:
-        files: ['examples/**']
+        files: ['examples/*', 'lib/<%= pkg.name %>.min.js']
 
   grunt.registerTask 'default', [
-    'coffee',
+    'browserify',
     'uglify',
+    'copy',
     'watch'
   ]
 
   grunt.registerTask 'serve', [
     'coffee',
-    'uglify'
+    'uglify',
+    'copy'
   ]
