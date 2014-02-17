@@ -21,13 +21,14 @@ gc.contextualcomments = class Contextualcomments
   templatePaths            : './templates/'
   containerTemplateFile    : 'container.html'
   commentsListTemplateFile : 'commentsList.html'
+  commentsListButtonTemplateFile : 'commentsListButton.html'
   commentTemplateFile      : 'comment.html'
 
   # private variables
-  _container
-  _containerTemplate
-  _commentsListTemplate
-  _commentTemplate
+  # _container
+  # _containerTemplate
+  # _commentsListTemplate
+  # _commentTemplate
   _commentsLists    : []
   _availableOptions : ['target', 'selector', 'containerId', 'comments', 'gapBetweenButtonAndList', 'templatePaths', 'containerTemplateFile', 'commentsListTemplateFile', 'commentTemplateFile']
 
@@ -39,6 +40,10 @@ gc.contextualcomments = class Contextualcomments
 
   _initVars: (options)->
     _.extend(@, _.pick(options, @_availableOptions))
+
+    if typeof @target == 'string'
+      @target = $(@target)
+
     return @
 
   _initTemplates: ()->
@@ -46,6 +51,9 @@ gc.contextualcomments = class Contextualcomments
     $.when(
       $.get( @templatePaths+@containerTemplateFile, (data)->
         that._containerTemplate = data
+      );
+      $.get( @templatePaths+@commentsListButtonTemplateFile, (data)->
+        that.commentsListButtonTemplate = data
       );
       $.get( @templatePaths+@commentsListTemplateFile, (data)->
         that._commentsListTemplate = data
@@ -58,12 +66,15 @@ gc.contextualcomments = class Contextualcomments
 
     return @
 
-  _getCommentsByParentId: (parentId)->
-    comments = []
+  _getCommentsByIndexAndParentId: (index, parentId, comments)->
+    if !comments
+      comments = []
+    that = @
 
     @comments.forEach( (comment)->
-      if comment.parentId == parentId
+      if comment.index == index && comment.parentId == parentId
         comments.push(comment)
+        that._getCommentsByIndexAndParentId(index, comment.uid, comments)
     )
 
     return comments
@@ -71,15 +82,18 @@ gc.contextualcomments = class Contextualcomments
   _buildLists: ()->
     that = @
     $(@target).find(@selector).each(()->
-      list = new gc.commentsList(that, this)
+      list = new gc.commentsList({
+        parent: that,
+        target: this
+      })
       that._commentsLists.push(list)
     )
 
     return @
 
   _render: ()->
-    @_container = _.template(@_containerTemplate, { container: @containerId })
-    $(@_container).appendTo('body')
+    @_container = $(_.template(@_containerTemplate, { container: @containerId }))
+    @_container.appendTo('body')
 
     @_buildLists()
 
