@@ -8,8 +8,8 @@ img { max-width: 100%; }
 .page { margin: 20px auto; width: 700px;
 	text-align: left; }
 
-.comments-container .comment-header { display: none; position: absolute; width: 24px; height: 24px; background: url(../img/ico_off.png) 50% 0; border: 0; cursor: pointer;
-	font-size: .7em; line-height: 1.9em; color: white; }
+.comments-container .comment-button { position: absolute; width: 24px; height: 24px; background: url(../img/ico_off.png) 50% 0; border: 0; cursor: pointer;
+	font-size: .7em; line-height: 1.9em; color: white; text-decoration: none; }
 .comments-container .comment-active { background-image: url(../img/ico_over.png); }
 .comments-list { position: absolute; padding: 2px 4px; width: 300px; background-color: #cccccc; background-color: rgba(204, 204, 204, .5); border-right: 3px solid #aaa;
 	text-align: left; }

@@ -23,15 +23,15 @@
 
     <script src="../lib/jquery.min.js"></script>
     <script src="../lib/underscore.js"></script>
-    <script src="../lib/contextual-comments.min.js"></script>
+    <script src="../lib/contextual-comments.js"></script>
     <script type="text/javascript">
         var cc = new gc.contextualcomments({
             target: '#mainContent',
             templatePaths : '../lib/templates/',
             comments: [
-                { uid: 1, parentId: 0, block: 2, selection: '', author: 'Greg', email: 'gcopin@inouit.com', comment: "Provident, reiciendis, incidunt, praesentium, expedita harum vel cumque molestiae fugit in nostrum eveniet." },
-                { uid: 2, parentId: 0, block: 2, selection: 'expedita harum vel cumque', author: 'G.Copin', email: 'gregcop1@gmail.com', comment: "Provident, reiciendis, incidunt, praesentium, expedita harum vel cumque molestiae fugit in nostrum eveniet." },
-                { uid: 3, parentId: 1, block: 2, selection: '', author: 'Greg', email: 'gregcop1@gmail.com', comment: "Provident, reiciendis, incidunt, praesentium, expedita harum vel cumque molestiae fugit in nostrum eveniet." }
+                { uid: 1, parentId: 0, index: 2, selection: '', author: 'Greg', email: 'gcopin@inouit.com', comment: "Provident, reiciendis, incidunt, praesentium, expedita harum vel cumque molestiae fugit in nostrum eveniet." },
+                { uid: 2, parentId: 0, index: 2, selection: 'expedita harum vel cumque', author: 'G.Copin', email: 'gregcop1@gmail.com', comment: "Provident, reiciendis, incidunt, praesentium, expedita harum vel cumque molestiae fugit in nostrum eveniet." },
+                { uid: 3, parentId: 1, index: 2, selection: '', author: 'Greg', email: 'gregcop1@gmail.com', comment: "Provident, reiciendis, incidunt, praesentium, expedita harum vel cumque molestiae fugit in nostrum eveniet." }
             ]
         });
     </script>
