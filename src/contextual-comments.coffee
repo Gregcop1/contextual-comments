@@ -43,13 +43,18 @@ gc.contextualcomments = class Contextualcomments
 
   _initTemplates: ()->
     that = @
-    try
+    $.when(
       $.get( @templatePaths+@containerTemplateFile, (data)->
-        that.containerTemplate = data
-        that._render()
-      , 'html');
-    catch error
-      console.warn 'Error : '+error
+        that._containerTemplate = data
+      );
+      $.get( @templatePaths+@commentsListTemplateFile, (data)->
+        that._commentsListTemplate = data
+      );
+      $.get( @templatePaths+@commentTemplateFile, (data)->
+        that._commentTemplate = data
+      );
+    ).then(()->
+      that._render())
 
     return @
 
@@ -66,14 +71,14 @@ gc.contextualcomments = class Contextualcomments
   _buildLists: ()->
     that = @
     $(@target).find(@selector).each(()->
-      list = new gc.commentsList()
+      list = new gc.commentsList(that, this)
       that._commentsLists.push(list)
     )
-    console.log that._commentsLists
+
     return @
 
   _render: ()->
-    @_container = _.template(@containerTemplate, { container: @containerId })
+    @_container = _.template(@_containerTemplate, { container: @containerId })
     $(@_container).appendTo('body')
 
     @_buildLists()
