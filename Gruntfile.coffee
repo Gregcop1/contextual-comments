@@ -56,10 +56,18 @@ module.exports = (grunt) ->
       examples:
         files: ['examples/*', 'lib/<%= pkg.name %>.min.js']
 
+    connect:
+      all:
+        options:
+          livereload: true
+          port: 9000
+          hostname: "0.0.0.0"
+
   grunt.registerTask 'default', [
     'browserify',
     'uglify',
     'copy',
+    'connect',
     'watch'
   ]
 
