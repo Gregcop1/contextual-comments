@@ -1,6 +1,4 @@
-gc.comment = require './comment.coffee'
-
-module.exports = class Commentslist
+class Commentslist
   # _parent
   # _target
   # _index
@@ -106,3 +104,5 @@ module.exports = class Commentslist
     @_renderButton();
 
     return @
+
+if module?.exports then exports.gc.Commentslist = gc.Commentslist else window.gc.Commentslist = Commentslist

@@ -17,12 +17,15 @@ module.exports = (grunt) ->
 
     pkg: grunt.file.readJSON('package.json')
 
-    browserify:
-      dist:
-        files:
-          '<%=gc.dist %>/<%= pkg.name %>.js': '<%=gc.src %>/<%= pkg.name %>.coffee'
-        options:
-          transform: ['coffeeify']
+    coffee:
+      compileBare: {
+        options: {
+          join: true
+        },
+        files: {
+          '<%=gc.dist %>/<%= pkg.name %>.js': [ '<%=gc.src %>/environment.coffee', '<%=gc.src %>/comments-list.coffee', '<%=gc.src %>/contextual-comments.coffee' ]
+        }
+      },
 
     uglify:
       options:
@@ -43,13 +46,13 @@ module.exports = (grunt) ->
 
     watch:
       options:
-        livereload: 35729
+        livereload: grunt.option('liveport') || 35729
       copy:
         files: ['<%=gc.src %>/templates/**']
         tasks: ['copy:templates']
-      browserify:
-        files: ['<%=gc.src %>/*.coffee', '<%=gc.src %>/templates/*.html']
-        tasks: ['browserify:dist']
+      coffee:
+        files: ['<%=gc.src %>/*.coffee']
+        tasks: ['coffee:compileBare']
       uglify:
         files: ['<%=gc.dist %>/<%= pkg.name %>.js']
         tasks: ['uglify:build']
@@ -59,12 +62,12 @@ module.exports = (grunt) ->
     connect:
       all:
         options:
-          livereload: true
-          port: 9000
+          livereload: grunt.option('liveport') || 35729
+          port: grunt.option('port') || 9000
           hostname: "0.0.0.0"
 
   grunt.registerTask 'default', [
-    'browserify',
+    'coffee',
     'uglify',
     'copy',
     'connect',

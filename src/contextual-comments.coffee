@@ -1,15 +1,4 @@
-try
-  if typeof($) == 'undefined' || $ == null
-    throw 'You must include jQuery'
-  if typeof(_) == 'undefined' || _ == null
-    throw 'You must include undescore'
-catch error
-  console.warn 'Error : '+error
-
-window.gc = {}
-gc.commentsList = require './comments-list.coffee'
-
-gc.contextualcomments = class Contextualcomments
+class Contextualcomments
   # Globals variables
   target                  : 'body'
   selector                : 'p, img, li'
@@ -82,7 +71,7 @@ gc.contextualcomments = class Contextualcomments
   _buildLists: ()->
     that = @
     $(@target).find(@selector).each(()->
-      list = new gc.commentsList({
+      list = new gc.Commentslist({
         parent: that,
         target: this
       })
@@ -98,3 +87,5 @@ gc.contextualcomments = class Contextualcomments
     @_buildLists()
 
     return @
+
+if module?.exports then exports.gc.Contextualcomments = Contextualcomments else window.gc.Contextualcomments = Contextualcomments
