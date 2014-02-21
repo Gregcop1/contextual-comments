@@ -11,5 +11,18 @@ catch error
 if( !window.gc )
 	window.gc = {}
 
-String.prototype.decodeHtml = ()->
-	$('<div/>').html(this).text()
+_.extend(_,
+	subpart: (text, subpart) ->
+    rec = false
+    content = ''
+    $(text).toArray().forEach((item)->
+      if(rec && item.outerHTML)
+        content += item.outerHTML
+      if(item.nodeName == '#comment')
+        if(item.data.trim() == subpart+' template start')
+          rec = true
+        if(item.data.trim() == subpart+' template end')
+          rec = false
+    )
+    return _.unescape(content)
+)

@@ -6,13 +6,8 @@ class Contextualcomments
   comments                : []
   gapBetweenButtonAndList : 20
 
-  # templates
-  templatePaths            : './templates/'
-  templateFile              : 'template.html'
-  containerTemplateFile    : 'container.html'
-  commentsListTemplateFile : 'commentsList.html'
-  commentsListButtonTemplateFile : 'commentsListButton.html'
-  commentTemplateFile      : 'comment.html'
+  # template
+  templateFile              : './templates/template.html'
 
   # private variables
   # _container
@@ -20,7 +15,7 @@ class Contextualcomments
   # _commentsListTemplate
   # _commentTemplate
   _commentsLists    : []
-  _availableOptions : ['target', 'selector', 'containerId', 'comments', 'gapBetweenButtonAndList', 'templatePaths', 'containerTemplateFile', 'commentsListTemplateFile', 'commentTemplateFile']
+  _availableOptions : ['target', 'selector', 'containerId', 'comments', 'gapBetweenButtonAndList', 'templateFile']
 
   constructor: (options)->
     @_initVars(options)
@@ -38,38 +33,14 @@ class Contextualcomments
 
   _initTemplates: ()->
     that = @
-    $.when(
-      $.ajax(@templatePaths+@templateFile)
-        .success((data) ->
-          that._containerTemplate = $('#containerTemplate', data).get(0).innerHTML
-          #   that._commentsListButtonTemplate = $('#listButtonTemplate', data).html()
-          #   that._commentsListTemplate = $('#listTemplate', data).html()
-          #   that._commentTemplate = $('#commentTemplate', data).html()
-        )
-      # $.get( @templatePaths+@templateFile, (data)->
-      #   html = data
-      #   that._containerTemplate = $('#containerTemplate', data).get(0)
-      #   that._commentsListButtonTemplate = $('#listButtonTemplate', data).html()
-      #   that._commentsListTemplate = $('#listTemplate', data).html()
-      #   that._commentTemplate = $('#commentTemplate', data).html()
-      #   console.log(data)
-      # );
-      # $.get( @templatePaths+@containerTemplateFile, (data)->
-      #   that._containerTemplate = data
-      #   console.log('---', that._containerTemplate)
-      # );
-      # $.get( @templatePaths+@commentsListButtonTemplateFile, (data)->
-      #   that._commentsListButtonTemplate = data
-      # );
-      # $.get( @templatePaths+@commentsListTemplateFile, (data)->
-      #   that._commentsListTemplate = data
-      # );
-      # $.get( @templatePaths+@commentTemplateFile, (data)->
-      #   that._commentTemplate = data
-      # );
-    ).then(()->
-      that._render())
+    $.ajax(@templateFile)
+      .success((data) ->
+        that._containerTemplate = _.subpart(data, 'container')
+        that._commentsListButtonTemplate = _.subpart(data, 'list button')
+        that._commentsListTemplate = _.subpart(data, 'list')
+        that._commentTemplate = _.subpart(data, 'comment')
 
+        that._render())
     return @
 
   _getCommentsByIndexAndParentId: (index, parentId, comments)->
@@ -87,7 +58,7 @@ class Contextualcomments
 
   _buildLists: ()->
     that = @
-    $(@target).find(@selector).each(()->
+    @target.find(@selector).each(()->
       list = new gc.Commentslist({
         parent: that,
         target: this
@@ -101,7 +72,7 @@ class Contextualcomments
     @_container = $(_.template(@_containerTemplate, { container: @containerId }))
     @_container.appendTo('body')
 
-    # @_buildLists()
+    @_buildLists()
 
     return @
 
