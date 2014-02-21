@@ -8,6 +8,7 @@ class Contextualcomments
 
   # templates
   templatePaths            : './templates/'
+  templateFile              : 'template.html'
   containerTemplateFile    : 'container.html'
   commentsListTemplateFile : 'commentsList.html'
   commentsListButtonTemplateFile : 'commentsListButton.html'
@@ -38,18 +39,34 @@ class Contextualcomments
   _initTemplates: ()->
     that = @
     $.when(
-      $.get( @templatePaths+@containerTemplateFile, (data)->
-        that._containerTemplate = data
-      );
-      $.get( @templatePaths+@commentsListButtonTemplateFile, (data)->
-        that.commentsListButtonTemplate = data
-      );
-      $.get( @templatePaths+@commentsListTemplateFile, (data)->
-        that._commentsListTemplate = data
-      );
-      $.get( @templatePaths+@commentTemplateFile, (data)->
-        that._commentTemplate = data
-      );
+      $.ajax(@templatePaths+@templateFile)
+        .success((data) ->
+          that._containerTemplate = $('#containerTemplate', data).get(0).innerHTML
+          #   that._commentsListButtonTemplate = $('#listButtonTemplate', data).html()
+          #   that._commentsListTemplate = $('#listTemplate', data).html()
+          #   that._commentTemplate = $('#commentTemplate', data).html()
+        )
+      # $.get( @templatePaths+@templateFile, (data)->
+      #   html = data
+      #   that._containerTemplate = $('#containerTemplate', data).get(0)
+      #   that._commentsListButtonTemplate = $('#listButtonTemplate', data).html()
+      #   that._commentsListTemplate = $('#listTemplate', data).html()
+      #   that._commentTemplate = $('#commentTemplate', data).html()
+      #   console.log(data)
+      # );
+      # $.get( @templatePaths+@containerTemplateFile, (data)->
+      #   that._containerTemplate = data
+      #   console.log('---', that._containerTemplate)
+      # );
+      # $.get( @templatePaths+@commentsListButtonTemplateFile, (data)->
+      #   that._commentsListButtonTemplate = data
+      # );
+      # $.get( @templatePaths+@commentsListTemplateFile, (data)->
+      #   that._commentsListTemplate = data
+      # );
+      # $.get( @templatePaths+@commentTemplateFile, (data)->
+      #   that._commentTemplate = data
+      # );
     ).then(()->
       that._render())
 
@@ -84,7 +101,7 @@ class Contextualcomments
     @_container = $(_.template(@_containerTemplate, { container: @containerId }))
     @_container.appendTo('body')
 
-    @_buildLists()
+    # @_buildLists()
 
     return @
 

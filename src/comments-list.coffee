@@ -92,7 +92,7 @@ class Commentslist
     return @
 
   _renderButton: ()->
-    @_button = $(_.template(@_parent.commentsListButtonTemplate, { label: @_getLabel() }))
+    @_button = $(_.template(@_parent._commentsListButtonTemplate, { label: @_getLabel() }))
     position  = @_getPosition()
     @_button.css({ top: position.top, left: position.left })
               .appendTo(@_parent._container);

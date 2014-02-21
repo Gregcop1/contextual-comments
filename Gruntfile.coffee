@@ -11,6 +11,7 @@ module.exports = (grunt) ->
   gcConfig =
     src: 'src'
     dist : './lib'
+    examples : './examples'
 
   grunt.initConfig
     gc: gcConfig
@@ -57,7 +58,7 @@ module.exports = (grunt) ->
         files: ['<%=gc.dist %>/<%= pkg.name %>.js']
         tasks: ['uglify:build']
       examples:
-        files: ['examples/*', 'lib/<%= pkg.name %>.min.js']
+        files: ['<%=gc.examples %>/*', 'lib/<%= pkg.name %>.min.js']
 
     connect:
       all:

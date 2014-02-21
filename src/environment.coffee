@@ -10,3 +10,6 @@ catch error
 
 if( !window.gc )
 	window.gc = {}
+
+String.prototype.decodeHtml = ()->
+	$('<div/>').html(this).text()
