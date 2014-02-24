@@ -1,4 +1,4 @@
-module.exports = class Comment
+class Comment
   # _parent
   # uid
   # parentId
@@ -22,3 +22,5 @@ module.exports = class Comment
   render: (options)->
 
     return @
+
+if module?.exports then exports.gc.comments.Comment = Comment else window.gc.comments.Comment = Comment

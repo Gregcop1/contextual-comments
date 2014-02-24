@@ -1,14 +1,16 @@
-class Commentslist
+class List
   # _parent
   # _target
   # _index
   # _button
-  _comments   : []
+  # _list
+  _comments            : []
+  _commentsOfAllLevels : []
 
   constructor: (options)->
     @_initVars(options)
       ._retrieveComments()
-      ._render()
+      ._build()
       ._binds()
 
     return @
@@ -25,11 +27,13 @@ class Commentslist
   _retrieveComments: ()->
     if(@_parent)
       @_comments = @_parent._getCommentsByIndexAndParentId(@_index, 0)
+      @_commentsOfAllLevels = @_parent._getCommentsByIndex(@_index)
+
 
     return @
 
   _getLabel: ()->
-    return if @_comments.length then @_comments.length else '+'
+    return if @_commentsOfAllLevels.length then @_commentsOfAllLevels.length else '+'
 
   _getPosition: () ->
     target = $(@_target)
@@ -50,7 +54,7 @@ class Commentslist
   _hideButton: (e) ->
     that = e.data.that
     force = e.data.force
-    that._isButtonShown = that._comments.length
+    that._isButtonShown = that._commentsOfAllLevels.length
     if !that._isButtonShown && force
       that._button.fadeOut(0)
     else
@@ -91,18 +95,23 @@ class Commentslist
 
     return @
 
-  _renderButton: ()->
-    @_button = $(_.template(@_parent._commentsListButtonTemplate, { label: @_getLabel() }))
-    position  = @_getPosition()
-    @_button.css({ top: position.top, left: position.left })
-              .appendTo(@_parent._container);
-    @_hideButton({ data : { force: true, that: @ }})
+  _buildButton: ()->
+    # @_button = $(_.template(@_parent._buttonView, { label: @_getLabel() }))
+    # position  = @_getPosition()
+    # @_button.css({ top: position.top, left: position.left })
+    #           .appendTo(@_parent._container);
+    # @_hideButton({ data : { force: true, that: @ }})
 
     return @
 
-  _render: ()->
-    @_renderButton();
+  _buildList: ()->
+    @_list = $(_.template(@_parent._listView, { comments: @_comments }))
+    return @
+
+  _build: ()->
+    # @_buildButton();
+    # @_buildList();
 
     return @
 
-if module?.exports then exports.gc.Commentslist = gc.Commentslist else window.gc.Commentslist = Commentslist
+if module?.exports then exports.gc.comments.List = List else window.gc.comments.List = List

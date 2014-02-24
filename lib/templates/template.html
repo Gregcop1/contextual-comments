@@ -3,12 +3,19 @@
 <!-- container template end -->
 
 
-<!-- list button template start -->
+<!-- button template start -->
 	<a href="javascript:;" class="comment-button"><%= label %></a>
-<!-- list button template end -->
+<!-- button template end -->
 
 
 <!-- list template start -->
+	<% if (_.size(comments)) { %>
+		<ul class="items">
+		<% _.each(comments,function(item,key,list){ %>
+			<li><%= key %></li>
+		<% }) %>
+		</ul>
+	<% } %>
 <!-- list template end -->
 
 

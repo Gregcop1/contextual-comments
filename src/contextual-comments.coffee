@@ -11,10 +11,11 @@ class Contextualcomments
 
   # private variables
   # _container
-  # _containerTemplate
-  # _commentsListTemplate
-  # _commentTemplate
-  _commentsLists    : []
+  # _containerView
+  # _listView
+  # _commentView
+  _buttons          : []
+  _lists            : []
   _availableOptions : ['target', 'selector', 'containerId', 'comments', 'gapBetweenButtonAndList', 'templateFile']
 
   constructor: (options)->
@@ -35,44 +36,72 @@ class Contextualcomments
     that = @
     $.ajax(@templateFile)
       .success((data) ->
-        that._containerTemplate = _.subpart(data, 'container')
-        that._commentsListButtonTemplate = _.subpart(data, 'list button')
-        that._commentsListTemplate = _.subpart(data, 'list')
-        that._commentTemplate = _.subpart(data, 'comment')
+        that._containerView = _.subpart(data, 'container')
+        that._buttonView = _.subpart(data, 'button')
+        that._listView = _.subpart(data, 'list')
+        that._commentView = _.subpart(data, 'comment')
 
         that._render())
     return @
 
-  _getCommentsByIndexAndParentId: (index, parentId, comments)->
-    if !comments
-      comments = []
+  _getCommentsByIndexAndParentId: (index, parentId)->
+    comments = []
     that = @
 
     @comments.forEach( (comment)->
       if comment.index == index && comment.parentId == parentId
+        comment.children = that._getCommentsByIndexAndParentId(index, comment.uid)
         comments.push(comment)
-        that._getCommentsByIndexAndParentId(index, comment.uid, comments)
     )
 
     return comments
 
+  _getCommentsByIndex: (index)->
+    comments = []
+    that = @
+
+    @comments.forEach( (comment)->
+      if comment.index == index
+        comments.push(comment)
+    )
+
+    return comments
+
+  _build: ()->
+    @_buildButtons()
+    # @_buildLists()
+
+    return @
+
+  _buildButtons: ()->
+    that = @
+    @target.find(@selector).each(()->
+      button = new gc.comments.Button({
+        cc: that,
+        target: this
+      })
+      that._buttons.push(button)
+    )
+
+    return @
+
   _buildLists: ()->
     that = @
     @target.find(@selector).each(()->
-      list = new gc.Commentslist({
+      list = new gc.comments.List({
         parent: that,
         target: this
       })
-      that._commentsLists.push(list)
+      that._lists.push(list)
     )
 
     return @
 
   _render: ()->
-    @_container = $(_.template(@_containerTemplate, { container: @containerId }))
+    @_container = $(_.template(@_containerView, { container: @containerId }))
     @_container.appendTo('body')
 
-    @_buildLists()
+    @_build()
 
     return @
 
