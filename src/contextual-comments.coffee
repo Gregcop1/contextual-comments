@@ -5,6 +5,7 @@ class Contextualcomments
   containerId             : 'comments-container'
   comments                : []
   gapBetweenButtonAndList : 20
+  dispatcher              : $()
 
   # template
   templateFile              : './templates/template.html'
@@ -21,6 +22,10 @@ class Contextualcomments
   constructor: (options)->
     @_initVars(options)
       ._initTemplates()
+
+    @dispatcher.on('show list', (e)->
+      console.log e
+    )
 
     return @
 

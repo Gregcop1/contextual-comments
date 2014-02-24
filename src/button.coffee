@@ -60,21 +60,27 @@ class Button
 
   _hover: (e) =>
     target = $(e.target)
-
     @_isShown = true
     target.addClass('comment-active')
     return target
 
   _out: (e) =>
     target = $(e.target)
-
     target.removeClass('comment-active')
+    return target
+
+  _click: (e) =>
+    target = $(e.target)
+    @_cc.dispatcher.trigger($.Event('show list', {
+      target: @_target
+      }))
     return target
 
   _binds: () ->
     @_button.on('mouseenter', @_show)
       .on('mouseenter', @_hover)
       .on('mouseleave', @_out)
+      .on('click', @_click)
     @_target.on('mouseenter', @_show)
       .on('mouseout', @_hide)
     return @
