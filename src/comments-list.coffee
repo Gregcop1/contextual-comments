@@ -3,7 +3,9 @@ class Commentslist
   # _target
   # _index
   # _button
-  _comments   : []
+  # _list
+  _comments            : []
+  _commentsOfAllLevels : []
 
   constructor: (options)->
     @_initVars(options)
@@ -25,11 +27,13 @@ class Commentslist
   _retrieveComments: ()->
     if(@_parent)
       @_comments = @_parent._getCommentsByIndexAndParentId(@_index, 0)
+      @_commentsOfAllLevels = @_parent._getCommentsByIndex(@_index)
+
 
     return @
 
   _getLabel: ()->
-    return if @_comments.length then @_comments.length else '+'
+    return if @_commentsOfAllLevels.length then @_commentsOfAllLevels.length else '+'
 
   _getPosition: () ->
     target = $(@_target)
@@ -50,7 +54,7 @@ class Commentslist
   _hideButton: (e) ->
     that = e.data.that
     force = e.data.force
-    that._isButtonShown = that._comments.length
+    that._isButtonShown = that._commentsOfAllLevels.length
     if !that._isButtonShown && force
       that._button.fadeOut(0)
     else
@@ -100,8 +104,13 @@ class Commentslist
 
     return @
 
+  _renderList: ()->
+    @_list = $(_.template(@_parent._commentsListTemplate, { comments: @_comments }))
+    return @
+
   _render: ()->
     @_renderButton();
+    @_renderList();
 
     return @
 
