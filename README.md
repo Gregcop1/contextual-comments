@@ -9,24 +9,16 @@ There's a lot of plugins to add comments on a text but honestly it's always the 
 ## Changelog ##
 ## Roadmap ##
 
- - **V. 0.5**
-     - List of comments
-     - HTML/CSS form
  - **V. 0.6**
-     - JS structure for form
-     - Documentation
+     - List view
  - **V. 0.7**
-     - PHP sample
-     - Documentation for PHP sample
+     - Comments view
  - **V. 0.8**
-     - Typo3 plugin
-     - Documentation for Typo3 plugin
+     - Form view
  - **V. 0.9**
-     - Wordpress plugin
-     - Documentation for Wordpress plugin
+     - PHP sample
  - **V. 1.0**
-     - Ghost plugin
-     - Documentation for Ghost plugin
+     - Documentation
 ## License ##
 [GPL v3][1] (c) [Gregcop1][2]
 
