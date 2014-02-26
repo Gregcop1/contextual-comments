@@ -5,7 +5,7 @@ class Contextualcomments
   containerId             : 'comments-container'
   comments                : []
   gapBetweenButtonAndList : 20
-  dispatcher              : $()
+  dispatcher              : $({})
 
   # template
   templateFile              : './templates/template.html'
@@ -22,11 +22,6 @@ class Contextualcomments
   constructor: (options)->
     @_initVars(options)
       ._initTemplates()
-
-    @dispatcher.on('show list', (e)->
-      console.log e
-    )
-
     return @
 
   _initVars: (options)->
@@ -73,33 +68,22 @@ class Contextualcomments
     return comments
 
   _build: ()->
-    @_buildButtons()
-    # @_buildLists()
-
-    return @
-
-  _buildButtons: ()->
     that = @
     @target.find(@selector).each(()->
+      # button
       button = new gc.comments.Button({
         cc: that,
         target: this
       })
       that._buttons.push(button)
-    )
 
-    return @
-
-  _buildLists: ()->
-    that = @
-    @target.find(@selector).each(()->
+      # list
       list = new gc.comments.List({
-        parent: that,
+        cc: that,
         target: this
       })
       that._lists.push(list)
     )
-
     return @
 
   _render: ()->

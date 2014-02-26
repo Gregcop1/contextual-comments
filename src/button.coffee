@@ -3,7 +3,7 @@ class Button
   # _index
   # _label
   # _target
-  # _button
+  # _el
   # _isShown
   # _commentLength
 
@@ -39,7 +39,7 @@ class Button
   _show: (e) =>
     target = $(e.target)
     @_isShown = true
-    @_button.fadeIn('fast')
+    @_el.fadeIn('fast')
 
     return target
 
@@ -49,11 +49,11 @@ class Button
     force = e.data?.force
     @_isShown = @_commentLength
     if !@_isShown && force
-      @_button.fadeOut(0)
+      @_el.fadeOut(0)
     else
       setTimeout(()->
         if !that._isShown
-          that._button.fadeOut('fast')
+          that._el.fadeOut('fast')
       , 1000)
 
     return target
@@ -71,13 +71,12 @@ class Button
 
   _click: (e) =>
     target = $(e.target)
-    @_cc.dispatcher.trigger($.Event('show list', {
-      target: @_target
-      }))
+    @_cc.dispatcher.trigger('hideAllLists')
+    @_cc.dispatcher.trigger('showList', @_target)
     return target
 
   _binds: () ->
-    @_button.on('mouseenter', @_show)
+    @_el.on('mouseenter', @_show)
       .on('mouseenter', @_hover)
       .on('mouseleave', @_out)
       .on('click', @_click)
@@ -86,9 +85,9 @@ class Button
     return @
 
   _render: ()->
-    @_button = $(_.template(@_cc._buttonView, { label: @_label }))
+    @_el = $(_.template(@_cc._buttonView, { label: @_label }))
     position  = @_getPosition()
-    @_button.css({ top: position.top, left: position.left })
+    @_el.css({ top: position.top, left: position.left })
               .appendTo(@_cc._container)
     @_hide({ data : { force: true }})
     return @

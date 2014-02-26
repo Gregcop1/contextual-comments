@@ -9,13 +9,24 @@
 
 
 <!-- list template start -->
+	<div class="comments-list">
 	<% if (_.size(comments)) { %>
 		<ul class="items">
-		<% _.each(comments,function(item,key,list){ %>
-			<li><%= key %></li>
+		<% _.each(comments,function(item,key){ %>
+			<li>
+				<%= key %>
+				<% if (item.children && _.size(item.children)) { %>
+				<ul class="items">
+					<% _.each(item.children,function(child,key){ %>
+						<li><%= key %></li>
+					<% }) %>
+				</ul>
+				<% } %>
+			</li>
 		<% }) %>
 		</ul>
 	<% } %>
+	</div>
 <!-- list template end -->
 
 
