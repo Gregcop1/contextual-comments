@@ -1,0 +1,32 @@
+<!-- container template start -->
+	<div id="<%= container %>" class="<%= container %>"></div>
+<!-- container template end -->
+
+
+<!-- button template start -->
+	<button class="comment-button"><%= label %></button>
+<!-- button template end -->
+
+
+<!-- list template start -->
+	<div class="comments-list">
+	<% if (_.size(comments)) { %>
+		<ul class="items">
+		<% _.each(comments,function(item,key){ %>
+			<%= item._el %>
+		<% }) %>
+		</ul>
+	<% } %>
+	</div>
+<!-- list template end -->
+
+
+<!-- comment template start -->
+	<li class="item <% if(parentId) {%>itemChild<% } %>">
+		<%= avatar %>
+		<div class="infos">
+			<p class="author"><%= author %></p>
+			<p class="message"><%= comment %></p>
+		</div>
+	</li>
+<!-- comment template end -->

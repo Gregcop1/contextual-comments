@@ -44,13 +44,21 @@ module.exports = (grunt) ->
           dest: '<%=gc.dist %>/templates',
 
         ]
+      examples:
+        files: [
+          expand: true,
+          cwd: '<%=gc.dist %>/'
+          src: ['**'],
+          dest: '<%=gc.examples %>/lib',
+
+        ]
 
     watch:
       options:
         livereload: grunt.option('liveport') || 35729
       copy:
         files: ['<%=gc.src %>/templates/**']
-        tasks: ['copy:templates']
+        tasks: ['copy:templates', 'copy:examples']
       coffee:
         files: ['<%=gc.src %>/*.coffee']
         tasks: ['coffee:compileBare']
