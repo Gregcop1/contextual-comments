@@ -1,0 +1,2 @@
+.comments-container .comment-button { position: absolute; cursor: pointer; outline: 0; }
+.comments-list { position: absolute; display: none; }

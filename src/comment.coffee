@@ -22,7 +22,7 @@ class Comment
     return @
 
   _getAvatar: ()->
-    return '<img src="http://www.gravatar.com/avatar/'+gc.comments.MD5(@email)+'?s=50" alt=""/>'
+    return '<img src="http://www.gravatar.com/avatar/'+gc.comments.MD5(@email)+'?s=40" alt=""/>'
 
   _render: (options)->
     @_el = (_.template(@_cc._commentView, {

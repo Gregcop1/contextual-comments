@@ -4,7 +4,7 @@
 
 
 <!-- button template start -->
-	<a href="javascript:;" class="comment-button"><%= label %></a>
+	<button class="comment-button"><%= label %></button>
 <!-- button template end -->
 
 
@@ -24,7 +24,9 @@
 <!-- comment template start -->
 	<li class="item <% if(parentId) {%>itemChild<% } %>">
 		<%= avatar %>
-		<p class="author"><%= author %></p>
-		<p class="message"><%= comment %></p>
+		<div class="infos">
+			<p class="author"><%= author %></p>
+			<p class="message"><%= comment %></p>
+		</div>
 	</li>
 <!-- comment template end -->

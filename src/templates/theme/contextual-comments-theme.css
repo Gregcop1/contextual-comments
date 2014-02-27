@@ -1,0 +1,21 @@
+.comments-container .comment-button { padding: 0; width: 24px; height: 26px; border: 0; background: url(img/ico_off.png) 50% 2px no-repeat;
+	font-size: 1.1em; line-height: 1.5em; color: white; text-decoration: none; }
+.comments-container .comment-active { background-image: url(img/ico_over.png); }
+
+.comments-list { padding: 15px; width: 300px; max-height: 600px; overflow: auto; background-color: #cccccc; background-color: rgba(0,0,0,.1); border-right: 3px solid #aaa;
+	text-align: left; }
+.comments-list ul { margin: 0; padding: 0; }
+.comments-list li { margin: 0; padding: 15px; min-height: 50px; background-color: white; list-style-type: none;
+	font-family: 'Droid Sans', sans-serif; }
+.comments-list li+li { margin: 15px 0; }
+.comments-list li:last-child { margin-bottom: 0; }
+.comments-list .infos { display: inline-block; width: 215px;  }
+.comments-list img { float: left; margin: 0 15px 0 0; border-radius: 20px; }
+.comments-list p { margin: 0; padding: 0;
+	 font-size: 1.3em; color: #333333; }
+.comments-list .author { margin: 0 0 5px;
+	font-size: 1.1em; font-weight: bold; color: #29b061; }
+.comments-list .message { font-size: 12px; color: #444; }
+
+.comments-list .itemChild { margin: -5px 0 5px; padding-left: 30px; border-top: 1px solid #f1f1f1; }
+.comments-list .itemChild .infos { width: 200px; }
