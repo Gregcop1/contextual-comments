@@ -3,8 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>contextual-comments</title>
+    <style>
+        @import url(http://fonts.googleapis.com/css?family=Droid+Sans);
 
-    <link rel="stylesheet" type="text/css" href="style/contextual-comments.css" media="all" />
+        html { font-size: 62.5%;  }
+        body { margin: 0; padding: 0;
+            font-family: 'Droid Sans', sans-serif; font-size: 1em; text-align: center; }
+
+        h1 { font-size: 2em; line-height: 1.3em; }
+        p { font-size: 1.4em; line-height: 1.3em; }
+        img { max-width: 100%; }
+
+        .page { margin: 20px auto; width: 700px;
+            text-align: left; }
+    </style>
+    <link rel="stylesheet" type="text/css" href="../lib/templates/contextual-comments.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="../lib/templates/theme/contextual-comments-theme.css" media="all" />
 
 </head>
 <body>
@@ -29,7 +43,8 @@
             comments: [
                 { uid: 1, parentId: 0, index: 2, selection: '', author: 'Greg', email: 'gcopin@inouit.com', comment: "Provident, reiciendis, incidunt, praesentium, expedita harum vel cumque molestiae fugit in nostrum eveniet." },
                 { uid: 2, parentId: 0, index: 2, selection: 'aliquet pellentesque', author: 'G.Copin', email: 'gregcop1@gmail.com', comment: "Provident, reiciendis, incidunt, praesentium, expedita harum vel cumque molestiae fugit in nostrum eveniet." },
-                { uid: 3, parentId: 1, index: 2, selection: '', author: 'Greg', email: 'toto@gmail.com', comment: "Provident, reiciendis, incidunt, praesentium, expedita harum vel cumque molestiae fugit in nostrum eveniet." }
+                { uid: 3, parentId: 1, index: 2, selection: '', author: 'Greg', email: 'toto@gmail.com', comment: "Provident, reiciendis, incidunt, praesentium, expedita harum vel cumque molestiae fugit in nostrum eveniet." },
+                { uid: 4, parentId: 1, index: 2, selection: '', author: 'Greg', email: 'gregcop1@gmail.com', comment: "Provident, reiciendis, incidunt, praesentium, expedita harum vel cumque molestiae fugit in nostrum eveniet." }
             ]
         });
     </script>
