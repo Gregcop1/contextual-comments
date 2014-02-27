@@ -71,7 +71,7 @@ class Button
 
   _click: (e) =>
     target = $(e.target)
-    @_cc.dispatcher.trigger('hideAllLists')
+    @_cc.dispatcher.trigger('hideAllLists', @_target)
     @_cc.dispatcher.trigger('showList', @_target)
     return target
 

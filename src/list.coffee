@@ -35,19 +35,27 @@ class List
 
   _show: (e, target) =>
     if target == @_target.get(0)
-      @_el.appendTo(@_cc._container)
-      position  = @_getPosition()
-      @_el.css({ top: position.top, left: position.left })
+      if @_ghostEl
+        @_el.appendTo(@_cc._container)
+          .fadeIn('fast')
+        position  = @_getPosition()
+        @_el.css({ top: position.top, left: position.left })
+        @_ghostEl = null
+      else
+        @_hide()
     return e.target
 
-  _hide: () =>
-    if @_el
-      @_el.detach()
+  _hide: (e, except) =>
+    if !except || except != @_target.get(0)
+      @_el.fadeOut('fast', ()=>
+        @_ghostEl = @_el.detach()
+      )
     return @
 
   _binds: () ->
     @_cc.dispatcher.on('showList', @_show)
     @_cc.dispatcher.on('hideAllLists', @_hide)
+    @_hide()
     return @
 
   _build: ()->
