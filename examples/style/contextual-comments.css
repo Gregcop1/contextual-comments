@@ -18,6 +18,7 @@ img { max-width: 100%; }
 .comments-list li { margin: 2px 0; padding: 5px; min-height: 50px; background-color: white; list-style-type: none;
 	font-family: 'Droid Sans', sans-serif; }
 .comments-list li+li { margin-top: 5px; }
+.comments-list .itemChild { margin: -5px 0 5px; padding-left: 15px; }
 .comments-list img { float: left; margin: -5px 5px 5px -5px; }
 .comments-list p { margin: 0; padding: 0;
 	 color: #333333; }

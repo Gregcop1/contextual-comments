@@ -1,5 +1,5 @@
 class List
-  # _parent
+  # _cc
   # _target
   # _index
   # _el
@@ -22,8 +22,19 @@ class List
 
   _retrieveComments: ()->
     if(@_cc)
-      @_comments = @_cc._getCommentsByIndexAndParentId(@_index, 0)
+      @_commentsTemp = @_cc._getCommentsByIndexAndParentId(@_index, 0)
+      @_comments = @_parseComments(@_commentsTemp, [])
     return @
+
+  _parseComments: (ori, dest)->
+    if ori && ori.length
+      ori.forEach((item)=>
+        dest.push( new gc.comments.Comment( _.extend(item, { _cc: @_cc }) ))
+        if(item.children)
+            dest = @_parseComments(item.children, dest)
+      )
+
+    return dest
 
   _getPosition: () ->
     target = $(@_target)

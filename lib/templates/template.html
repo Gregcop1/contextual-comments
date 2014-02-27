@@ -13,16 +13,7 @@
 	<% if (_.size(comments)) { %>
 		<ul class="items">
 		<% _.each(comments,function(item,key){ %>
-			<li>
-				<%= key %>
-				<% if (item.children && _.size(item.children)) { %>
-				<ul class="items">
-					<% _.each(item.children,function(child,key){ %>
-						<li><%= key %></li>
-					<% }) %>
-				</ul>
-				<% } %>
-			</li>
+			<%= item._el %>
 		<% }) %>
 		</ul>
 	<% } %>
@@ -31,9 +22,9 @@
 
 
 <!-- comment template start -->
-	<li class="item">
-		<img src="http://www.gravatar.com/avatar/2c2d85bb21e34707bc58dfc2905226be?s=50">
-		<p class="author">Greg</p>
-		<p class="message">Provident, reiciendis, incidunt, praesentium, expedita harum vel cumque molestiae fugit in nostrum eveniet.</p>
+	<li class="item <% if(parentId) {%>itemChild<% } %>">
+		<%= avatar %>
+		<p class="author"><%= author %></p>
+		<p class="message"><%= comment %></p>
 	</li>
 <!-- comment template end -->

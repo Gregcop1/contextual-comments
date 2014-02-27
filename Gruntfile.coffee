@@ -24,7 +24,7 @@ module.exports = (grunt) ->
           join: true
         },
         files: {
-          '<%=gc.dist %>/<%= pkg.name %>.js': [ '<%=gc.src %>/environment.coffee', '<%=gc.src %>/button.coffee', '<%=gc.src %>/list.coffee', '<%=gc.src %>/contextual-comments.coffee' ]
+          '<%=gc.dist %>/<%= pkg.name %>.js': [ '<%=gc.src %>/environment.coffee', '<%=gc.src %>/comment.coffee', '<%=gc.src %>/button.coffee', '<%=gc.src %>/list.coffee', '<%=gc.src %>/contextual-comments.coffee', '<%=gc.src %>/MD5.coffee' ]
         }
       },
 
