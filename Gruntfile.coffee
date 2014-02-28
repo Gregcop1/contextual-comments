@@ -66,7 +66,7 @@ module.exports = (grunt) ->
         files: ['<%=gc.dist %>/<%= pkg.name %>.js']
         tasks: ['uglify:build']
       examples:
-        files: ['<%=gc.examples %>/*', 'lib/<%= pkg.name %>.min.js']
+        files: ['lib/<%= pkg.name %>.min.js']
 
     connect:
       all:

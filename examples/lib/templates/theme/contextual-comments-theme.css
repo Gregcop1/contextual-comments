@@ -5,17 +5,39 @@
 .comments-list { padding: 15px; width: 300px; max-height: 600px; overflow: auto; background-color: #cccccc; background-color: rgba(0,0,0,.1); border-right: 3px solid #aaa;
 	text-align: left; }
 .comments-list ul { margin: 0; padding: 0; }
-.comments-list li { margin: 0; padding: 15px; min-height: 50px; background-color: white; list-style-type: none;
+.comments-list li { margin: 0; margin: 15px 0; padding: 15px; min-height: 50px; background-color: white; list-style-type: none;
 	font-family: 'Droid Sans', sans-serif; }
-.comments-list li+li { margin: 15px 0; }
+.comments-list li:first-child { margin-top: 0; }
 .comments-list li:last-child { margin-bottom: 0; }
-.comments-list .infos { display: inline-block; width: 215px;  }
-.comments-list img { float: left; margin: 0 15px 0 0; border-radius: 20px; }
+.comments-list .infos { display: inline-block; width: 79%;  }
+.comments-list img { float: left; margin: 0 5.3% 0 0; border-radius: 20px; }
 .comments-list p { margin: 0; padding: 0;
 	 font-size: 1.3em; color: #333333; }
 .comments-list .author { margin: 0 0 5px;
-	font-size: 1.1em; font-weight: bold; color: #29b061; }
+	font-size: 1.1em; font-weight: bold; color: #888; }
 .comments-list .message { font-size: 12px; color: #444; }
 
-.comments-list .itemChild { margin: -5px 0 5px; padding-left: 30px; border-top: 1px solid #f1f1f1; }
-.comments-list .itemChild .infos { width: 200px; }
+.comments-list .itemChild { margin: -15px 0 15px; padding-left: 30px; border-top: 1px solid #f1f1f1; }
+.comments-list .itemChild .infos { width: 78%; }
+
+.comments-list .reply { margin: -15px 0 15px; min-height: 0; border-top: 1px solid #cbcbcb; cursor: pointer;
+	font-size: 1.2em; font-weight: bold; color: #29b061; text-align: center; }
+.comments-list .reply:hover { background-color: #29b061;
+	color: white; }
+
+.comments-list .comments-form { display: none; margin: -15px 0 15px; border-top: 1px solid #cbcbcb; cursor: pointer; }
+.comments-form input[type="text"],
+.comments-form input[type="email"],
+.comments-form textarea { margin: 5px 1%; padding: 5px 3%; border: 0; border-bottom: 1px solid #cbcbcb; outline: 0;
+	font-size: 1.2em; }
+.comments-form input[type="text"],
+.comments-form input[type="email"]{ width: 42%; }
+.comments-form textarea { width: 91%;
+	font-family: inherit; }
+.comments-form input[type="submit"] { margin: 5px 1%; padding: 8px 3.14%; background: #29b061; border: 0; cursor: pointer; border-radius: 2px;
+	font-weight: bold; color: white; }
+.comments-form input[type="submit"]:hover { background: #29b061;
+	color: white; }
+.comments-form .cancel { display: inline-block; width: 28%;
+	font-weight: bold; text-align: center; color: #900; text-decoration: none; }
+.comments-form .cancel:hover { text-decoration: underline; }

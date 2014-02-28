@@ -26,8 +26,8 @@ class Comment
 
   _render: (options)->
     @_el = (_.template(@_cc._commentView, {
-      avatar: @_getAvatar(),
-      author: @author,
+      avatar: @_getAvatar()
+      author: @author
       comment: @comment
       parentId: @parentId
     }))

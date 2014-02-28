@@ -10,6 +10,12 @@ class Contextualcomments
   # template
   templateFile              : './templates/template.html'
 
+  # localization
+  _currentLanguage : 'en'
+  _l10n:
+    en:
+      'form.replyLabel'  : 'Reply'
+
   # private variables
   # _container
   # _containerView
@@ -23,6 +29,9 @@ class Contextualcomments
     @_initVars(options)
       ._initTemplates()
     return @
+
+  ll: (key)->
+    return @_l10n[@_currentLanguage][key]
 
   _initVars: (options)->
     _.extend(@, _.pick(options, @_availableOptions))

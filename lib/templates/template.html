@@ -10,13 +10,41 @@
 
 <!-- list template start -->
 	<div class="comments-list">
-	<% if (_.size(comments)) { %>
 		<ul class="items">
+		<% if (_.size(comments)) { %>
 		<% _.each(comments,function(item,key){ %>
+			<% if(key != 0 && !item.parentId) {%>
+				<li class="reply"><%= replyLabel %></li>
+				<li class="comments-form">
+					<form type="multipart/form-data" >
+						<input type="hidden" id="cc-parentId" name="parentId"/>
+						<input type="hidden" id="cc-index" name="index"/>
+						<input type="hidden" id="cc-selection" name="selection"/>
+						<input type="text" id="cc-author" name="author" placeholder="Author" required/>
+						<input type="email" id="cc-email" name="email" placeholder="Email" required/>
+						<textarea id="cc-message" name="message" placeholder="Message" required></textarea>
+						<input id="cc-submit" type="submit" value="Leave a note"/>
+						<a href="javascript:;" id="cc-cancel" class="cancel">Cancel</a>
+					</form>
+				</li>
+			<% } %>
 			<%= item._el %>
 		<% }) %>
+		<% } %>
+			<li class="reply"><%= replyLabel %></li>
+			<li class="comments-form">
+				<form type="multipart/form-data" >
+					<input type="hidden" id="cc-parentId" name="parentId"/>
+					<input type="hidden" id="cc-index" name="index"/>
+					<input type="hidden" id="cc-selection" name="selection"/>
+					<input type="text" id="cc-author" name="author" placeholder="Author" required/>
+					<input type="email" id="cc-email" name="email" placeholder="Email" required/>
+					<textarea id="cc-message" name="message" placeholder="Message" required></textarea>
+					<input id="cc-submit" type="submit" value="Leave a note"/>
+					<a href="javascript:;" id="cc-cancel" class="cancel">Cancel</a>
+				</form>
+			</li>
 		</ul>
-	<% } %>
 	</div>
 <!-- list template end -->
 

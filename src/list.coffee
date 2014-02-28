@@ -70,7 +70,10 @@ class List
     return @
 
   _build: ()->
-    @_el = $(_.template(@_cc._listView, { comments: @_comments }))
+    @_el = $(_.template(@_cc._listView, {
+      comments: @_comments
+      replyLabel: @_cc.ll('form.replyLabel')
+    }))
     return @
 
 if module?.exports then exports.gc.comments.List = List else window.gc.comments.List = List
