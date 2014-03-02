@@ -21,6 +21,7 @@ class Contextualcomments
   # _containerView
   # _listView
   # _commentView
+  # _formView
   _buttons          : []
   _lists            : []
   _availableOptions : ['target', 'selector', 'containerId', 'comments', 'gapBetweenButtonAndList', 'templateFile']
@@ -49,6 +50,7 @@ class Contextualcomments
         that._buttonView = _.subpart(data, 'button')
         that._listView = _.subpart(data, 'list')
         that._commentView = _.subpart(data, 'comment')
+        that._formView = _.subpart(data, 'form')
 
         that._render())
     return @

@@ -371,6 +371,7 @@
         that._buttonView = _.subpart(data, 'button');
         that._listView = _.subpart(data, 'list');
         that._commentView = _.subpart(data, 'comment');
+        that._formView = _.subpart(data, 'form');
         return that._render();
       });
       return this;
