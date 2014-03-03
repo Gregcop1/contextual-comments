@@ -17,7 +17,17 @@ class Form
     @_parent = options?.parent || null
     return @
 
+  show: ()->
+    @_el.slideDown('fast')
+    return @
+
+  _hide: ()=>
+    @_el.slideUp('fast')
+    @_cc.dispatcher.trigger('hideAllForms')
+    return @
+
   _binds: () ->
+    @_el.find('.cancel').click(@_hide)
     return @
 
   _build: () ->
@@ -27,7 +37,7 @@ class Form
       messagelabel: @_cc.ll('form.messageLabel')
       submitlabel: @_cc.ll('form.submitLabel')
       cancellabel: @_cc.ll('form.cancelLabel')
-    }))
+    })).appendTo(@_parent._el.find('ul'))
     return @
 
 if module?.exports then exports.gc.comments.Form = Form else window.gc.comments.Form = Form

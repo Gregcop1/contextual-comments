@@ -26,7 +26,7 @@
 
 
 <!-- comment template start -->
-	<li class="item <% if(parentId) {%>itemChild<% } %>">
+	<li class="<% if(!parentId) {%>item<% } else {%>itemChild<%} %>">
 		<%= avatar %>
 		<div class="infos">
 			<p class="author"><%= author %></p>

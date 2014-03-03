@@ -3,6 +3,7 @@ class List
   # _target
   # _index
   # _el
+  # _form
   _comments            : []
 
   constructor: (options)->
@@ -45,6 +46,7 @@ class List
     }
 
   _show: (e, target) =>
+    @_cc.dispatcher.trigger('hideAllForms')
     if target == @_target.get(0)
       if @_ghostEl
         @_el.appendTo(@_cc._container)
@@ -63,17 +65,38 @@ class List
       )
     return @
 
+  _showForm: (e)=>
+    @_cc.dispatcher.trigger('hideAllForms')
+    target = $(e.target)
+      .slideUp('fast')
+    @_form.show()
+      ._el.insertAfter(target)
+    return @
+
+  _showReply: ()=>
+    @_el.find('.reply')
+      .slideDown('fast')
+    return @
+
   _binds: () ->
     @_cc.dispatcher.on('showList', @_show)
     @_cc.dispatcher.on('hideAllLists', @_hide)
+    @_el.find('.reply').click(@_showForm)
+    @_cc.dispatcher.on('hideAllForms', @_showReply)
     @_hide()
     return @
 
   _build: ()->
     @_el = $(_.template(@_cc._listView, {
-      comments: @_comments
-      replyLabel: @_cc.ll('form.replyLabel')
+      comments   : @_comments
+      replyLabel : @_cc.ll('form.replyLabel')
+      form       : @_form
     }))
+
+    @_form = new gc.comments.Form({
+      cc: @_cc
+      parent: @
+    })
     return @
 
 if module?.exports then exports.gc.comments.List = List else window.gc.comments.List = List
