@@ -66,6 +66,10 @@ class List
     return @
 
   _showForm: (e)=>
+    reply = $(e.target)
+    if reply?.prev()
+      console.log reply.prev()
+
     @_cc.dispatcher.trigger('hideAllForms')
     target = $(e.target)
       .slideUp('fast')
@@ -78,11 +82,18 @@ class List
       .slideDown('fast')
     return @
 
+  _addComment: (e, data)=>
+    if data?.comment &&  data?.comment.index == @_index
+      console.log 'c est moi', @_index
+    return @
+
   _binds: () ->
     @_cc.dispatcher.on('showList', @_show)
     @_cc.dispatcher.on('hideAllLists', @_hide)
-    @_el.find('.reply').click(@_showForm)
+    @_el.find('.reply').on('click', @_showForm)
     @_cc.dispatcher.on('hideAllForms', @_showReply)
+    @_cc.dispatcher.on('addComment', @_addComment)
+
     @_hide()
     return @
 

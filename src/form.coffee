@@ -26,17 +26,40 @@ class Form
     @_cc.dispatcher.trigger('hideAllForms')
     return @
 
+  _empty: ()->
+    form = @_el.find('form')
+    form.get(0).reset()
+    return @
+
+  _formSubmit: (e)=>
+    e.preventDefault()
+    form = $(e.target)
+    @_cc.dispatcher.trigger('addComment', { comment: {
+      parentId: form.find('#cc-parentId').val(),
+      index: form.find('#cc-index').val(),
+      selection: form.find('#cc-selection').val(),
+      author: form.find('#cc-author').val(),
+      email: form.find('#cc-email').val(),
+      message: form.find('#cc-message').val(),
+    }})
+
+    @_empty()
+      ._hide()
+
+    return @
+
   _binds: () ->
-    @_el.find('.cancel').click(@_hide)
+    @_el.find('.cancel').on('click', @_hide)
+    @_el.find('form').on('submit', @_formSubmit)
     return @
 
   _build: () ->
     @_el = $(_.template(@_cc._formView, {
-      authorlabel: @_cc.ll('form.authorLabel')
-      emaillabel: @_cc.ll('form.emailLabel')
-      messagelabel: @_cc.ll('form.messageLabel')
-      submitlabel: @_cc.ll('form.submitLabel')
-      cancellabel: @_cc.ll('form.cancelLabel')
+      authorLabel: @_cc.ll('form.authorLabel')
+      emailLabel: @_cc.ll('form.emailLabel')
+      messageLabel: @_cc.ll('form.messageLabel')
+      submitLabel: @_cc.ll('form.leaveANote')
+      cancelLabel: @_cc.ll('form.cancelLabel')
     })).appendTo(@_parent._el.find('ul'))
     return @
 

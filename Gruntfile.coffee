@@ -19,14 +19,11 @@ module.exports = (grunt) ->
     pkg: grunt.file.readJSON('package.json')
 
     coffee:
-      compileBare: {
-        options: {
+      compileBare:
+        options:
           join: true
-        },
-        files: {
+        files:
           '<%=gc.dist %>/<%= pkg.name %>.js': [ '<%=gc.src %>/environment.coffee', '<%=gc.src %>/comment.coffee', '<%=gc.src %>/form.coffee', '<%=gc.src %>/button.coffee', '<%=gc.src %>/list.coffee', '<%=gc.src %>/contextual-comments.coffee', '<%=gc.src %>/MD5.coffee' ]
-        }
-      },
 
     uglify:
       options:
@@ -56,17 +53,19 @@ module.exports = (grunt) ->
     watch:
       options:
         livereload: grunt.option('liveport') || 35729
-      copy:
-        files: ['<%=gc.src %>/templates/**']
-        tasks: ['copy:templates', 'copy:examples']
       coffee:
         files: ['<%=gc.src %>/*.coffee']
-        tasks: ['coffee:compileBare']
-      uglify:
-        files: ['<%=gc.dist %>/<%= pkg.name %>.js']
-        tasks: ['uglify:build']
-      examples:
-        files: ['lib/<%= pkg.name %>.min.js']
+        tasks: [
+          'coffee:compileBare'
+          'uglify:build'
+          'copy:examples'
+        ]
+      copy:
+        files: ['<%=gc.src %>/templates/**']
+        tasks: [
+          'copy:templates'
+          'copy:examples'
+        ]
 
     connect:
       all:

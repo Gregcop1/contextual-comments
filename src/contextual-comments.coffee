@@ -14,7 +14,12 @@ class Contextualcomments
   _currentLanguage : 'en'
   _l10n:
     en:
-      'form.replyLabel'  : 'Reply'
+      'form.replyLabel'   : 'Reply'
+      'form.leaveANote'   : 'Leave a note'
+      'form.cancelLabel'  : 'Cancel'
+      'form.authorLabel'  : 'Author'
+      'form.emailLabel'   : 'Email'
+      'form.messageLabel' : 'Message'
 
   # private variables
   # _container
@@ -52,7 +57,9 @@ class Contextualcomments
         that._commentView = _.subpart(data, 'comment')
         that._formView = _.subpart(data, 'form')
 
-        that._render())
+        that._render()
+          ._binds()
+      )
     return @
 
   _getCommentsByIndexAndParentId: (index, parentId)->
@@ -78,6 +85,12 @@ class Contextualcomments
 
     return comments
 
+  addComment: (e, data)=>
+    if data?.comment
+      @comments.push(data.comment)
+      console.log @comments
+    return @
+
   _build: ()->
     that = @
     @target.find(@selector).each(()->
@@ -95,6 +108,10 @@ class Contextualcomments
       })
       that._lists.push(list)
     )
+    return @
+
+  _binds: ()->
+    @dispatcher.on('addComment', @addComment)
     return @
 
   _render: ()->

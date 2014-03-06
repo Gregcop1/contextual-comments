@@ -38,15 +38,15 @@
 
 <!-- form template start -->
 	<li class="comments-form">
-		<form type="multipart/form-data" >
+		<form action="javascript:;" method="POST" type="multipart/form-data" >
 			<input type="hidden" id="cc-parentId" name="parentId" value=""/>
 			<input type="hidden" id="cc-index" name="index" value=""/>
 			<input type="hidden" id="cc-selection" name="selection" value=""/>
-			<input type="text" id="cc-author" name="author" placeholder="Author" required/>
-			<input type="email" id="cc-email" name="email" placeholder="Email" required/>
-			<textarea id="cc-message" name="message" placeholder="Message" required></textarea>
-			<input id="cc-submit" type="submit" value="Leave a note"/>
-			<a href="javascript:;" id="cc-cancel" class="cancel">Cancel</a>
+			<input type="text" id="cc-author" name="author" placeholder="<%= authorLabel %>" required/>
+			<input type="email" id="cc-email" name="email" placeholder="<%= emailLabel %>" required/>
+			<textarea id="cc-message" name="message" placeholder="<%= messageLabel %>" required></textarea>
+			<input id="cc-submit" type="submit" value="<%= submitLabel %>"/>
+			<a href="javascript:;" id="cc-cancel" class="cancel"><%= cancelLabel %></a>
 		</form>
 	</li>
 <!-- form template end -->
