@@ -65,10 +65,26 @@ class List
       )
     return @
 
+  _getInfosFromReply: (target)->
+    infos = {
+      index: @_index
+      parentId: 0
+      selection: ''
+    }
+    if target?.prev()
+      prev = target.closest('.item')
+      console.log prev, $.data(prev)
+    #     infos = _.extend(infos, {
+    #         parentId: $.data(prev, 'parentId')
+    #         selection: $.data(prev, 'selection')
+    #       })
+    # console.log infos
+
+    return infos
+
   _showForm: (e)=>
     reply = $(e.target)
-    if reply?.prev()
-      console.log reply.prev()
+    infos = @_getInfosFromReply(reply)
 
     @_cc.dispatcher.trigger('hideAllForms')
     target = $(e.target)
@@ -103,6 +119,7 @@ class List
       replyLabel : @_cc.ll('form.replyLabel')
       form       : @_form
     }))
+    @_cc.dispatcher.trigger('bindDatasToCommentsItem')
 
     @_form = new gc.comments.Form({
       cc: @_cc

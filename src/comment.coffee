@@ -12,13 +12,24 @@ class Comment
   constructor: (options)->
     @_initVars(options)
       ._render()
+      ._binds()
     return @
 
   _initVars: (options)->
     _.extend(@, _.pick(options, @_availableOptions))
     return @
 
+  _bindDatas: ()=>
+    @_el = $(@_el)
+    $.data(@_el, 'uid', @uid)
+    $.data(@_el, 'index', @index)
+    $.data(@_el, 'parentId', @parentId)
+    $.data(@_el, 'selection', @selection)
+    console.log @_el, $.data(@_el)
+    return @
+
   _binds: (options)->
+    @_cc.dispatcher.on('bindDatasToCommentsItem', @_bindDatas)
     return @
 
   _getAvatar: ()->

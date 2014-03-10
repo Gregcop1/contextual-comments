@@ -63,27 +63,28 @@ class Contextualcomments
     return @
 
   _getCommentsByIndexAndParentId: (index, parentId)->
-    comments = []
+    comms = []
     that = @
 
     @comments.forEach( (comment)->
       if comment.index == index && comment.parentId == parentId
-        comment.children = that._getCommentsByIndexAndParentId(index, comment.uid)
-        comments.push(comment)
+        item = _.extend({}, comment)
+        item.children = that._getCommentsByIndexAndParentId(index, comment.uid)
+        comms.push(item)
     )
 
-    return comments
+    return comms
 
   _getCommentsByIndex: (index)->
-    comments = []
+    comms = []
     that = @
 
     @comments.forEach( (comment)->
       if comment.index == index
-        comments.push(comment)
+        comms.push(comment)
     )
 
-    return comments
+    return comms
 
   addComment: (e, data)=>
     if data?.comment
