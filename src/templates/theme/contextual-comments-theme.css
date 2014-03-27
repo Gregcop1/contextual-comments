@@ -1,11 +1,11 @@
-.comments-container .comment-button { padding: 0; width: 24px; height: 26px; border: 0; background: url(img/ico_off.png) 50% 2px no-repeat;
+.comments-container .comment-button { padding: 0; width: 24px; height: 24px; border: 0; background: url(img/icos.png) 50% 0px no-repeat;
 	font-size: 1.1em; line-height: 1.5em; color: white; text-decoration: none; }
-.comments-container .comment-active { background-image: url(img/ico_over.png); }
+.comments-container .comment-active { background-image: url(img/icos.png); background-position: 50% -24px; }
 
 .comments-list { padding: 15px; width: 300px; max-height: 600px; overflow: auto; background-color: #cccccc; background-color: rgba(0,0,0,.1); border-right: 3px solid #aaa;
 	text-align: left; }
 .comments-list ul { margin: 0; padding: 0; }
-.comments-list li { margin: 0; padding: 15px; min-height: 50px; background-color: white; list-style-type: none;
+.comments-list li { position: relative; margin: 0; padding: 15px; min-height: 50px; background-color: white; list-style-type: none;
 	font-family: 'Droid Sans', sans-serif; }
 .comments-list li:first-child { margin-top: 0; }
 .comments-list li:last-child { margin-bottom: 0; }
@@ -43,3 +43,9 @@
 .comments-form .cancel { display: inline-block; width: 28%;
 	font-weight: bold; text-align: center; color: #900; text-decoration: none; }
 .comments-form .cancel:hover { text-decoration: underline; }
+
+.comments-list .tools { position: absolute; top: 5px; right: 5px; }
+.comments-list .tools button { width: 24px; height: 20px; border: 0; background: #efefef url(img/icos.png) no-repeat;
+	text-indent: -999px; }
+.comments-list button.reply { background-position: 50% -48px; }
+.comments-list button.reply:hover { background-color: #efefef; background-position: 50% -72px; }

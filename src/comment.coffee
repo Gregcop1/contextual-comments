@@ -25,7 +25,6 @@ class Comment
     $.data(@_el, 'index', @index)
     $.data(@_el, 'parentId', @parentId)
     $.data(@_el, 'selection', @selection)
-    console.log @_el, $.data(@_el)
     return @
 
   _binds: (options)->
@@ -41,6 +40,8 @@ class Comment
       author: @author
       comment: @comment
       parentId: @parentId
+      replyLabel : @_cc.ll('form.replyLabel')
+      removeLabel : @_cc.ll('form.removeLabel')
     }))
     return @
 

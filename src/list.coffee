@@ -73,12 +73,10 @@ class List
     }
     if target?.prev()
       prev = target.closest('.item')
-      console.log prev, $.data(prev)
     #     infos = _.extend(infos, {
     #         parentId: $.data(prev, 'parentId')
     #         selection: $.data(prev, 'selection')
     #       })
-    # console.log infos
 
     return infos
 
@@ -99,8 +97,6 @@ class List
     return @
 
   _addComment: (e, data)=>
-    if data?.comment &&  data?.comment.index == @_index
-      console.log 'c est moi', @_index
     return @
 
   _binds: () ->

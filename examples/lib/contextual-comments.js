@@ -66,7 +66,6 @@
       $.data(this._el, 'index', this.index);
       $.data(this._el, 'parentId', this.parentId);
       $.data(this._el, 'selection', this.selection);
-      console.log(this._el, $.data(this._el));
       return this;
     };
 
@@ -84,7 +83,9 @@
         avatar: this._getAvatar(),
         author: this.author,
         comment: this.comment,
-        parentId: this.parentId
+        parentId: this.parentId,
+        replyLabel: this._cc.ll('form.replyLabel'),
+        removeLabel: this._cc.ll('form.removeLabel')
       });
       return this;
     };
@@ -272,6 +273,9 @@
 
     Button.prototype._render = function() {
       var position;
+      if (this._el) {
+        this._el.remove();
+      }
       this._el = $(_.template(this._cc._buttonView, {
         label: this._label
       }));
@@ -394,7 +398,6 @@
       };
       if (target != null ? target.prev() : void 0) {
         prev = target.closest('.item');
-        console.log(prev, $.data(prev));
       }
       return infos;
     };
@@ -415,9 +418,6 @@
     };
 
     List.prototype._addComment = function(e, data) {
-      if ((data != null ? data.comment : void 0) && (data != null ? data.comment.index : void 0) === this._index) {
-        console.log('c est moi', this._index);
-      }
       return this;
     };
 
@@ -458,7 +458,7 @@
   Contextualcomments = (function() {
     Contextualcomments.prototype.target = 'body';
 
-    Contextualcomments.prototype.selector = 'p, img, li';
+    Contextualcomments.prototype.selector = 'p, img';
 
     Contextualcomments.prototype.containerId = 'comments-container';
 
@@ -475,6 +475,7 @@
     Contextualcomments.prototype._l10n = {
       en: {
         'form.replyLabel': 'Reply',
+        'form.removeLabel': 'Remove',
         'form.leaveANote': 'Leave a note',
         'form.cancelLabel': 'Cancel',
         'form.authorLabel': 'Author',
@@ -551,7 +552,6 @@
     Contextualcomments.prototype.addComment = function(e, data) {
       if (data != null ? data.comment : void 0) {
         this.comments.push(data.comment);
-        console.log(this.comments);
       }
       return this;
     };

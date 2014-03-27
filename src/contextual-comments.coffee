@@ -1,7 +1,7 @@
 class Contextualcomments
   # Globals variables
   target                  : 'body'
-  selector                : 'p, img, li'
+  selector                : 'p, img'
   containerId             : 'comments-container'
   comments                : []
   gapBetweenButtonAndList : 20
@@ -15,6 +15,7 @@ class Contextualcomments
   _l10n:
     en:
       'form.replyLabel'   : 'Reply'
+      'form.removeLabel'  : 'Remove'
       'form.leaveANote'   : 'Leave a note'
       'form.cancelLabel'  : 'Cancel'
       'form.authorLabel'  : 'Author'
@@ -89,7 +90,6 @@ class Contextualcomments
   addComment: (e, data)=>
     if data?.comment
       @comments.push(data.comment)
-      console.log @comments
     return @
 
   _build: ()->

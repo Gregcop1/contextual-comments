@@ -85,6 +85,8 @@ class Button
     return @
 
   _render: ()->
+    if @_el
+      @_el.remove()
     @_el = $(_.template(@_cc._buttonView, { label: @_label }))
     position  = @_getPosition()
     @_el.css({ top: position.top, left: position.left })
